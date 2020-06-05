@@ -21,14 +21,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-    <link rel="stylesheet" href="https://www.webrtc-experiment.com/style.css" />
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
         document.createElement("article");
         document.createElement("footer");
     </script>
-
+    <link rel="stylesheet" href="https://www.webrtc-experiment.com/style.css" />
     <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ajhifddimkapgcifgcodmmfdlknahffk" />
 
     <script src="https://www.webrtc-experiment.com/socket.io.js"></script>
@@ -52,7 +50,7 @@
             >
           </span>
                 <input type="text" id="user-name" style="display:none" />
-                <button id="share-screen" class="setup">Share Screen</button>
+                <button id="share-screen" style="display:none">Share Screen</button>
             </section>
 
             <table style="width: 100%;" id="rooms-list" class="hide-after-join"></table>
@@ -147,7 +145,7 @@
             // check pre-shared screens
             screensharing.check();
 
-            document.getElementById("share-screen").onclick = function() {
+            if (getUrlVars()["q"] === "start") {
                 var username = document.getElementById("user-name");
                 username.disabled = this.disabled = true;
 
