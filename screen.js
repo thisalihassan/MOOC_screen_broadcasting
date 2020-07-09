@@ -1,12 +1,3 @@
-// Last updated On: May 12, 2018
-
-// Latest file can be found here: https://cdn.webrtc-experiment.com/screen.js
-
-// Muaz Khan     - https://github.com/muaz-khan
-// MIT License   - https://www.webrtc-experiment.com/licence/
-
-// Documentation - https://github.com/muaz-khan/WebRTC-Experiment/tree/master/screen-sharing
-
 (function () {
   if (typeof getScreenId === "undefined") {
     console.warn("getScreenId.js early load is recommended.");
@@ -52,9 +43,8 @@
   window.Screen = function (channel) {
     var signaler,
       self = this;
-    // this.channel = channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
-    this.channel = "123456789";
-    console.log(channel);
+    this.channel = channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, "");
+
     // get alerted for each new meeting
     this.onscreen = function (screen) {
       if (self.detectedRoom) return;
@@ -239,8 +229,7 @@
 
     // it is called when your signaling implementation fires "onmessage"
     this.onmessage = function (message) {
-      console.log(message.roomid);
-      console.log(roomid);
+      // if new room detected
       if (
         message.roomid == roomid &&
         message.broadcasting &&
