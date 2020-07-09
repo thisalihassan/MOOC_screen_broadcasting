@@ -50,7 +50,7 @@ function serverHandler(request, response) {
         "Content-Type": "text/html",
       });
 
-      filename += "/index2.html";
+      filename += "/dont.html";
     }
 
     fs.readFile(filename, "utf8", function (err, file) {

@@ -81,11 +81,10 @@
             var sender = Math.round(Math.random() * 999999999) + 999999999;
 
             // https://github.com/muaz-khan/WebRTC-Experiment/tree/master/socketio-over-nodejs
-            var SIGNALING_SERVER =
-                "https://socketio-over-nodejs2.herokuapp.com:443/";
+            var SIGNALING_SERVER = "https://signalling-kro-g.herokuapp.com/";
             io.connect(SIGNALING_SERVER).emit("new-channel", {
                 channel: channel,
-                sender: sender
+                sender: sender,
             });
 
             var socket = io.connect(SIGNALING_SERVER + channel);
@@ -96,7 +95,7 @@
             socket.send = function(message) {
                 socket.emit("message", {
                     sender: sender,
-                    data: message
+                    data: message,
                 });
             };
 
@@ -129,7 +128,7 @@
 
                     var _screen = {
                         userid: button.getAttribute("data-userid"),
-                        roomid: button.getAttribute("data-roomid")
+                        roomid: button.getAttribute("data-roomid"),
                     };
                     screensharing.view(_screen);
                 };
@@ -303,7 +302,7 @@
                             DetectRTC.screen.notInstalled = true;
                             callback("not-installed");
                         };
-                    }
+                    },
                 };
 
                 // check if desktop-capture extension installed.
