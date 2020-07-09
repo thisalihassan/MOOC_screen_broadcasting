@@ -11,16 +11,16 @@ var IceServersHandler = (function () {
         //   "stun:stun2.l.google.com:19302",
         //   "stun:stun.l.google.com:19302?transport=udp",
       },
-      // {
-      //   url: "turn:relay.backups.cz",
-      //   credential: "webrtc",
-      //   username: "webrtc",
-      // },
-      // {
-      //   url: "turn:relay.backups.cz?transport=tcp",
-      //   credential: "webrtc",
-      //   username: "webrtc",
-      // },
+      {
+        url: "turn:relay.backups.cz",
+        credential: "webrtc",
+        username: "webrtc",
+      },
+      {
+        url: "turn:relay.backups.cz?transport=tcp",
+        credential: "webrtc",
+        username: "webrtc",
+      },
     ];
 
     return iceServers;
