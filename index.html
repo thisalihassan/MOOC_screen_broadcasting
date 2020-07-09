@@ -116,134 +116,135 @@
         </section>
 
         <script>
-            document.getElementById("share-screen").style.display = "none";
-            document.getElementById("user-name").style.display = "none";
-            document.getElementById("user-name").value = getUrlVars()["n"];
-            window.onload = function() {
-                if (getUrlVars()["q"] == "start") {
-                    document.getElementById("share-screen").style.display = "block";
-                }
-            };
-            var videosContainer =
-                document.getElementById("videos-container") || document.body;
-            var roomsList = document.getElementById("rooms-list");
+            window.onload = function(e) {
+                    document.getElementById("share-screen").style.display = "none";
+                    document.getElementById("user-name").style.display = "none";
+                    document.getElementById("user-name").value = getUrlVars()["n"];
+                    window.onload = function() {
+                        if (getUrlVars()["q"] == "start") {
+                            document.getElementById("share-screen").style.display = "block";
+                        }
+                    };
+                    var videosContainer =
+                        document.getElementById("videos-container") || document.body;
+                    var roomsList = document.getElementById("rooms-list");
 
-            var screensharing = new Screen();
-            var channel = getUrlVars()["id"];
+                    var screensharing = new Screen();
+                    var channel = getUrlVars()["id"];
 
-            var sender = Math.round(Math.random() * 999999999) + 999999999;
+                    var sender = Math.round(Math.random() * 999999999) + 999999999;
 
-            var SIGNALING_SERVER =
-                "https://socketio-over-nodejs2.herokuapp.com:443/";
-            io.connect(SIGNALING_SERVER).emit("new-channel", {
-                channel: channel,
-                sender: sender,
-            });
+                    var SIGNALING_SERVER =
+                        "https://socketio-over-nodejs2.herokuapp.com:443/";
+                    io.connect(SIGNALING_SERVER).emit("new-channel", {
+                        channel: channel,
+                        sender: sender,
+                    });
 
-            var socket = io.connect(SIGNALING_SERVER + channel);
-            socket.on("connect", function() {
-                // setup peer connection & pass socket object over the constructor!
-            });
+                    var socket = io.connect(SIGNALING_SERVER + channel);
+                    socket.on("connect", function() {
+                        // setup peer connection & pass socket object over the constructor!
+                    });
 
-            socket.send = function(message) {
-                socket.emit("message", {
-                    sender: sender,
-                    data: message,
-                });
-            };
-
-            screensharing.openSignalingChannel = function(callback) {
-                return socket.on("message", callback);
-            };
-
-            screensharing.onscreen = function(_screen) {
-                var alreadyExist = document.getElementById(_screen.userid);
-                console.log(alreadyExist);
-                if (alreadyExist) return;
-
-                if (typeof roomsList === "undefined") roomsList = document.body;
-                screensharing.view(_screen);
-                var tr = document.createElement("tr");
-
-                tr.id = _screen.userid;
-                tr.innerHTML =
-                    "<td>" +
-                    _screen.userid +
-                    " shared his screen.</td>" +
-                    '<td><button class="join">View</button></td>';
-                roomsList.insertBefore(tr, roomsList.firstChild);
-
-                var button = tr.querySelector(".join");
-                button.setAttribute("data-userid", _screen.userid);
-                button.setAttribute("data-roomid", _screen.roomid);
-                button.onclick = function() {
-                    var button = this;
-                    button.disabled = true;
-
-                    var _screen = {
-                        userid: button.getAttribute("data-userid"),
-                        roomid: button.getAttribute("data-roomid"),
+                    socket.send = function(message) {
+                        socket.emit("message", {
+                            sender: sender,
+                            data: message,
+                        });
                     };
 
-                };
-            };
+                    screensharing.openSignalingChannel = function(callback) {
+                        return socket.on("message", callback);
+                    };
 
-            // on getting each new screen
-            screensharing.onaddstream = function(media) {
-                media.video.id = media.userid;
+                    screensharing.onscreen = function(_screen) {
+                        var alreadyExist = document.getElementById(_screen.userid);
+                        console.log(alreadyExist);
+                        if (alreadyExist) return;
 
-                var video = media.video;
-                videosContainer.insertBefore(video, videosContainer.firstChild);
+                        if (typeof roomsList === "undefined") roomsList = document.body;
+                        screensharing.view(_screen);
+                        var tr = document.createElement("tr");
 
-                var hideAfterJoin = document.querySelectorAll(".hide-after-join");
-                for (var i = 0; i < hideAfterJoin.length; i++) {
-                    hideAfterJoin[i].style.display = "none";
-                }
+                        tr.id = _screen.userid;
+                        tr.innerHTML =
+                            "<td>" +
+                            _screen.userid +
+                            " shared his screen.</td>" +
+                            '<td><button class="join">View</button></td>';
+                        roomsList.insertBefore(tr, roomsList.firstChild);
 
-                if (media.type === "local") {
-                    addStreamStopListener(media.stream, function() {
-                        location.reload();
-                    });
-                }
-            };
+                        var button = tr.querySelector(".join");
+                        button.setAttribute("data-userid", _screen.userid);
+                        button.setAttribute("data-roomid", _screen.roomid);
+                        button.onclick = function() {
+                            var button = this;
+                            button.disabled = true;
 
-            // using firebase for signaling
-            // screen.firebase = 'signaling';
+                            var _screen = {
+                                userid: button.getAttribute("data-userid"),
+                                roomid: button.getAttribute("data-roomid"),
+                            };
 
-            // if someone leaves; just remove his screen
-            screensharing.onuserleft = function(userid) {
-                var video = document.getElementById(userid);
-                if (video && video.parentNode) video.parentNode.removeChild(video);
+                        };
+                    };
 
-                // location.reload();
-            };
+                    // on getting each new screen
+                    screensharing.onaddstream = function(media) {
+                        media.video.id = media.userid;
 
-            // check pre-shared screens
-            screensharing.check();
+                        var video = media.video;
+                        videosContainer.insertBefore(video, videosContainer.firstChild);
 
-            document.getElementById("share-screen").onclick = function() {
-                var username = document.getElementById("user-name");
-                username.disabled = this.disabled = true;
+                        var hideAfterJoin = document.querySelectorAll(".hide-after-join");
+                        for (var i = 0; i < hideAfterJoin.length; i++) {
+                            hideAfterJoin[i].style.display = "none";
+                        }
 
-                screensharing.isModerator = true;
-                screensharing.userid = username.value;
+                        if (media.type === "local") {
+                            addStreamStopListener(media.stream, function() {
+                                location.reload();
+                            });
+                        }
+                    };
 
-                screensharing.share();
-            };
+                    // using firebase for signaling
+                    // screen.firebase = 'signaling';
 
-            screensharing.onNumberOfParticipantsChnaged = function(
-                numberOfParticipants
-            ) {
-                if (!screensharing.isModerator) return;
+                    // if someone leaves; just remove his screen
+                    screensharing.onuserleft = function(userid) {
+                        var video = document.getElementById(userid);
+                        if (video && video.parentNode) video.parentNode.removeChild(video);
 
-                document.title =
-                    numberOfParticipants + " users are viewing your screen!";
-                var element = document.getElementById("number-of-participants");
-                if (element) {
-                    element.innerHTML =
-                        numberOfParticipants + " users are viewing your screen!";
-                }
-            };
+                        // location.reload();
+                    };
+
+                    // check pre-shared screens
+                    screensharing.check();
+
+                    document.getElementById("share-screen").onclick = function() {
+                        var username = document.getElementById("user-name");
+                        username.disabled = this.disabled = true;
+
+                        screensharing.isModerator = true;
+                        screensharing.userid = username.value;
+
+                        screensharing.share();
+                    };
+
+                    screensharing.onNumberOfParticipantsChnaged = function(
+                        numberOfParticipants
+                    ) {
+                        if (!screensharing.isModerator) return;
+
+                        document.title =
+                            numberOfParticipants + " users are viewing your screen!";
+                        var element = document.getElementById("number-of-participants");
+                        if (element) {
+                            element.innerHTML =
+                                numberOfParticipants + " users are viewing your screen!";
+                        }
+                    };
         </script>
 
         <script>
@@ -356,6 +357,7 @@
                 "current chromeMediaSource",
                 DetectRTC.screen.chromeMediaSource
             );
+            }
         </script>
 
 </body>
