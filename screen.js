@@ -1,3 +1,12 @@
+// Last updated On: May 12, 2018
+
+// Latest file can be found here: https://cdn.webrtc-experiment.com/screen.js
+
+// Muaz Khan     - https://github.com/muaz-khan
+// MIT License   - https://www.webrtc-experiment.com/licence/
+
+// Documentation - https://github.com/muaz-khan/WebRTC-Experiment/tree/master/screen-sharing
+
 (function () {
   if (typeof getScreenId === "undefined") {
     console.warn("getScreenId.js early load is recommended.");
@@ -551,7 +560,7 @@
 
   iceServers = {
     iceServers: iceServers,
-    iceTransportPolicy: "all",
+    iceTransportPolicy: "relay",
     bundlePolicy: "max-bundle",
     iceCandidatePoolSize: 0,
   };
