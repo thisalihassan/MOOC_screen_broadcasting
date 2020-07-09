@@ -91,7 +91,7 @@
     <!-- scripts used for screen-sharing -->
     <script src="https://www.webrtc-experiment.com/socket.io.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="https://www.webrtc-experiment.com/IceServersHandler.js"></script>
+    <script src="IceServersHandler.js"></script>
     <script src="https://www.webrtc-experiment.com/getScreenId.js"></script>
     <script src="https://www.webrtc-experiment.com/CodecsHandler.js"></script>
     <script src="https://www.webrtc-experiment.com/BandwidthHandler.js"></script>
@@ -129,7 +129,7 @@
             var roomsList = document.getElementById("rooms-list");
 
             var screensharing = new Screen();
-            var channel = "123456789";
+            var channel = getUrlVars()["id"];
 
             var sender = Math.round(Math.random() * 999999999) + 999999999;
 
