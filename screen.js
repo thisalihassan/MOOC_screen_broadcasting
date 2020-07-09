@@ -560,7 +560,7 @@
 
   iceServers = {
     iceServers: iceServers,
-    iceTransportPolicy: "relay",
+    iceTransportPolicy: "all",
     bundlePolicy: "max-bundle",
     iceCandidatePoolSize: 0,
   };
