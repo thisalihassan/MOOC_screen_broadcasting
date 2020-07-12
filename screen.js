@@ -1,13 +1,12 @@
-// Last updated On: May 12, 2018
-
-// Latest file can be found here: https://cdn.webrtc-experiment.com/screen.js
-
-// Muaz Khan     - https://github.com/muaz-khan
-// MIT License   - https://www.webrtc-experiment.com/licence/
-
-// Documentation - https://github.com/muaz-khan/WebRTC-Experiment/tree/master/screen-sharing
-
 (function () {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (
+    m,
+    key,
+    value
+  ) {
+    vars[key] = value;
+  });
   if (typeof getScreenId === "undefined") {
     console.warn("getScreenId.js early load is recommended.");
   }
@@ -52,7 +51,7 @@
   window.Screen = function (channel) {
     var signaler,
       self = this;
-    this.channel = channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, "");
+    this.channel = channel || getUrlVars()["id"];
 
     // get alerted for each new meeting
     this.onscreen = function (screen) {
