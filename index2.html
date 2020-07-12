@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <title>WebRTC Screen Sharing</title>
+    <title>MOOC Screen Sharing</title>
 
     <script>
         function getUrlVars() {
@@ -96,6 +96,7 @@
     <script src="https://www.webrtc-experiment.com/CodecsHandler.js"></script>
     <script src="https://www.webrtc-experiment.com/BandwidthHandler.js"></script>
     <script src="https://www.webrtc-experiment.com/screen.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -119,11 +120,11 @@
             document.getElementById("share-screen").style.display = "none";
             document.getElementById("user-name").style.display = "none";
             document.getElementById("user-name").value = getUrlVars()["n"];
-            window.onload = function() {
+            $(document).ready(function() {
                 if (getUrlVars()["q"] == "start") {
-                    document.getElementById("share-screen").style.display = "block";
+                    document.getElementById("share-screen").click();
                 }
-            };
+            });
             var videosContainer =
                 document.getElementById("videos-container") || document.body;
             var roomsList = document.getElementById("rooms-list");
