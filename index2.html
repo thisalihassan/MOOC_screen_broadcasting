@@ -117,8 +117,7 @@
         </section>
 
         <script>
-            window.onbeforeunload = function(e) {
-                console.log(e)
+            window.onbeforeunload = function() {
                 return "Are you sure you want to stop your recording?";
             };
             document.getElementById("share-screen").style.display = "none";
