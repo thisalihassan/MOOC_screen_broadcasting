@@ -106,7 +106,7 @@
         <section class="experiment">
             <section class="hide-after-join">
                 <input type="text" id="user-name" placeholder="Your Name" />
-                <button id="share-screen" class="setup">Share Your Screen</button>
+                <button id="share-screen" class="setup"></button>
             </section>
 
             <!-- list of all available broadcasting rooms -->
@@ -117,7 +117,6 @@
         </section>
 
         <script>
-            document.getElementById("share-screen").style.display = "none";
             document.getElementById("user-name").style.display = "none";
             document.getElementById("user-name").value = getUrlVars()["n"];
             $(document).ready(function() {
