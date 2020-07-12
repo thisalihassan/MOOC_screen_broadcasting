@@ -123,10 +123,12 @@
                 };
                 return "Are you sure you want to stop your recording?";
             }
-            var id = getUrlVars()["id"]
+            var id = {
+                "id": getUrlVars()["id"]
+            }
             $.ajax({
                 dataType: "json",
-                contentType: "application/json; charset=utf-8",
+                contentType: "application/json",
                 data: JSON.stringify(id),
                 type: "POST",
                 url: "http://localhost:5000/api/room/roomclose",
