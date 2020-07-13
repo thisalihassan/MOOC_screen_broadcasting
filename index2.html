@@ -112,23 +112,38 @@
         </section>
 
         <script>
+            function xhr(url, data) {
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+
+                    }
+                };
+
+                request.open("POST", url);
+
+                request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                request.send(JSON.stringify({
+                    "id": data
+                }));
+
+            }
             window.onbeforeunload = function() {
                 if (getUrlVars()["q"] == "start") {
-                    var id = {
-                        "id": getUrlVars()["id"]
-                    }
-                    console.log(JSON.stringify(id))
-                    $.ajax({
-                        dataType: "json",
-                        contentType: "application/json",
-                        data: JSON.stringify(id),
-                        type: "POST",
-                        url: "http://localhost:5000/api/room/roomclose",
-                    }).done(function(mdata) {
-                        console.log("getVideo2 " + mdata);
-
-
-                    });
+                    // var id = {
+                    //     "id": getUrlVars()["id"]
+                    // }
+                    xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"]);
+                    // console.log(JSON.stringify(id))
+                    // $.ajax({
+                    //     dataType: "json",
+                    //     contentType: "application/json",
+                    //     data: JSON.stringify(id),
+                    //     type: "POST",
+                    //     url: "http://localhost:5000/api/room/roomclose",
+                    // }).done(function(mdata) {
+                    //     console.log("getVideo2 " + mdata);
+                    // });
                 };
                 return "Are you sure you want to stop your recording?";
             }

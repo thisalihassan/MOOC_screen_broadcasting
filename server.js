@@ -23,6 +23,16 @@ function serverHandler(request, response) {
     var uri = url.parse(request.url).pathname,
       filename = path.join(process.cwd(), uri);
 
+    var isWin = !!process.platform.match(/^win/);
+
+    if (
+      filename &&
+      filename.toString().indexOf(isWin ? "\\room" : "/room") != -1 &&
+      request.method.toLowerCase() == "post"
+    ) {
+      room(request, response);
+      return;
+    }
     if (filename && filename.search(/server.js/g) !== -1) {
       response.writeHead(404, {
         "Content-Type": "text/plain",
@@ -93,5 +103,15 @@ function runServer() {
     console.log("Server listening at http://" + addr.address + ":" + addr.port);
   });
 }
-
+function room(request, response) {
+  try {
+    let body = "";
+    request.on("data", (chunk) => {
+      body += chunk.toString(); // convert Buffer to string
+    });
+    console.log(body);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
 runServer();
