@@ -163,14 +163,6 @@
                         xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
                     }
                     document.body.appendChild(btn);
-                } else if (getUrlVars()["q"] == "join") {
-                    var btn = document.createElement("BUTTON");
-                    btn.innerHTML = "Leave ScreenSharing";
-                    btn.setAttribute("class", "btn btn-danger");
-                    btn.onclick = function() {
-                        xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
-                    }
-                    document.body.appendChild(btn);
                 }
             });
             var videosContainer =
@@ -213,7 +205,13 @@
                 if (typeof roomsList === "undefined") roomsList = document.body;
                 screensharing.view(_screen);
                 var tr = document.createElement("tr");
-
+                var btn = document.createElement("BUTTON");
+                btn.innerHTML = "Leave ScreenSharing";
+                btn.setAttribute("class", "btn btn-danger");
+                btn.onclick = function() {
+                    xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
+                }
+                document.body.appendChild(btn);
                 tr.id = _screen.userid;
                 tr.innerHTML =
                     "<td>" +
