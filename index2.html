@@ -23,7 +23,7 @@
     <link rel="author" type="text/html" href="https://plus.google.com/+MuazKhan" />
     <meta name="author" content="Muaz Khan" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.webrtc-experiment.com/style.css" />
 
     <style>
@@ -113,7 +113,7 @@
         </section>
 
         <script>
-            function xhr(url, data) {
+            function xhr(url, data, data2) {
                 var request = new XMLHttpRequest();
                 request.onreadystatechange = function() {
                     if (request.readyState == 4 && request.status == 200) {
@@ -125,7 +125,8 @@
 
                 request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                 request.send(JSON.stringify({
-                    "id": data
+                    "id": data,
+                    "user": data2
                 }));
 
             }
@@ -134,7 +135,7 @@
                     // var id = {
                     //     "id": getUrlVars()["id"]
                     // }
-                    xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"]);
+                    xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
                     // console.log(JSON.stringify(id))
                     // $.ajax({
                     //     dataType: "json",
@@ -155,6 +156,22 @@
             $(document).ready(function() {
                 if (getUrlVars()["q"] == "start") {
                     document.getElementById("share-screen").click();
+                    var btn = document.createElement("BUTTON");
+                    btn.innerHTML = "Stop ScreenSharing";
+                    btn.setAttribute("class", "btn btn-danger");
+                    btn.onclick = function() {
+                        xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
+                    }
+                    document.body.appendChild(btn);
+                } else if (getUrlVars()["q"] == "join") {
+                    document.getElementById("share-screen").click();
+                    var btn = document.createElement("BUTTON");
+                    btn.innerHTML = "Leave ScreenSharing";
+                    btn.setAttribute("class", "btn btn-danger");
+                    btn.onclick = function() {
+                        xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
+                    }
+                    document.body.appendChild(btn);
                 }
             });
             var videosContainer =
