@@ -130,10 +130,10 @@
                 }));
 
             }
-            // window.onbeforeunload = function() {
-            //     xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
-            //     return "Are you sure you want to stop your recording?";
-            // }
+            window.onbeforeunload = function() {
+                xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
+                return "Are you sure you want to stop your recording?";
+            }
 
             document.getElementById("share-screen").style.display = "none";
             document.getElementById("user-name").style.display = "none";
