@@ -15,6 +15,28 @@
             );
             return vars;
         }
+
+        function xhr(url, data, data2) {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+
+                }
+            };
+
+            request.open("POST", url);
+
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.send(JSON.stringify({
+                "id": data,
+                "user": data2
+            }));
+
+        }
+        window.onbeforeunload = function() {
+            xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
+            return "Are you sure you want to stop your recording?";
+        }
     </script>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -113,28 +135,6 @@
         </section>
 
         <script>
-            function xhr(url, data, data2) {
-                var request = new XMLHttpRequest();
-                request.onreadystatechange = function() {
-                    if (request.readyState == 4 && request.status == 200) {
-
-                    }
-                };
-
-                request.open("POST", url);
-
-                request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                request.send(JSON.stringify({
-                    "id": data,
-                    "user": data2
-                }));
-
-            }
-            window.onbeforeunload = function() {
-                xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
-                return "Are you sure you want to stop your recording?";
-            }
-
             document.getElementById("share-screen").style.display = "none";
             document.getElementById("user-name").style.display = "none";
             document.getElementById("user-name").value = getUrlVars()["n"];
