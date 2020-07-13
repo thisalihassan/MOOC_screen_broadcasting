@@ -130,25 +130,10 @@
                 }));
 
             }
-            window.onbeforeunload = function() {
-                if (getUrlVars()["q"] == "start") {
-                    // var id = {
-                    //     "id": getUrlVars()["id"]
-                    // }
-                    xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
-                    // console.log(JSON.stringify(id))
-                    // $.ajax({
-                    //     dataType: "json",
-                    //     contentType: "application/json",
-                    //     data: JSON.stringify(id),
-                    //     type: "POST",
-                    //     url: "http://localhost:5000/api/room/roomclose",
-                    // }).done(function(mdata) {
-                    //     console.log("getVideo2 " + mdata);
-                    // });
-                };
-                return "Are you sure you want to stop your recording?";
-            }
+            // window.onbeforeunload = function() {
+            //     xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"], getUrlVars()["u"]);
+            //     return "Are you sure you want to stop your recording?";
+            // }
 
             document.getElementById("share-screen").style.display = "none";
             document.getElementById("user-name").style.display = "none";
