@@ -102,6 +102,7 @@
             <section class="hide-after-join">
                 <input type="text" id="user-name" placeholder="Your Name" />
                 <button id="share-screen" class="setup"></button>
+                <button id="closeCall" class="setup"></button>
             </section>
 
             <!-- list of all available broadcasting rooms -->
@@ -147,7 +148,9 @@
                 };
                 return "Are you sure you want to stop your recording?";
             }
-
+            document.getElementById("closeCall").onclick = function() {
+                xhr("https://moocback.herokuapp.com/getModal", getUrlVars()["id"]);
+            }
             document.getElementById("share-screen").style.display = "none";
             document.getElementById("user-name").style.display = "none";
             document.getElementById("user-name").value = getUrlVars()["n"];
