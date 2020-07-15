@@ -118,6 +118,7 @@
       getScreenId(function (error, sourceId, screen_constraints) {
         if (IsAndroidChrome) {
           screen_constraints = {
+            audio: true,
             mandatory: {
               chromeMediaSource: "screen",
             },
@@ -125,6 +126,7 @@
           };
 
           screen_constraints = {
+            audio: true,
             video: screen_constraints,
           };
 
@@ -349,13 +351,15 @@
 
         var video = document.createElement("video");
         video.id = _userid;
+        video.muted = false;
+        video.volume = 50;
 
         try {
           video.setAttributeNode(document.createAttribute("autoplay"));
           video.setAttributeNode(document.createAttribute("playsinline"));
           video.setAttributeNode(document.createAttribute("controls"));
         } catch (e) {
-          video.setAttribute("autoplay", true);
+          video.setAttribute("autoplay", false);
           video.setAttribute("playsinline", true);
           video.setAttribute("controls", true);
         }
