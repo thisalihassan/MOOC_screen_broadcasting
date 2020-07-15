@@ -125,7 +125,6 @@
           };
 
           screen_constraints = {
-            audio: true,
             video: screen_constraints,
           };
 
