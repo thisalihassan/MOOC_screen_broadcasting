@@ -349,15 +349,13 @@
 
         var video = document.createElement("video");
         video.id = _userid;
-        video.muted = false;
-        video.volume = 50;
 
         try {
           video.setAttributeNode(document.createAttribute("autoplay"));
           video.setAttributeNode(document.createAttribute("playsinline"));
           video.setAttributeNode(document.createAttribute("controls"));
         } catch (e) {
-          video.setAttribute("autoplay", false);
+          video.setAttribute("autoplay", true);
           video.setAttribute("playsinline", true);
           video.setAttribute("controls", true);
         }
@@ -599,7 +597,7 @@
   // offer.setRemoteDescription(sdp);
   // offer.addIceCandidate(candidate);
   var offerConstraints = {
-    OfferToReceiveAudio: true,
+    OfferToReceiveAudio: false,
     OfferToReceiveVideo: false,
   };
 
